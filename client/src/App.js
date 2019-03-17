@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import ExpensesList from "./components/expenseList";
 import CreateExpense from "./components/createExpense";
+import CreateUser from "./components/createUser";
 import EditExpense from "./components/editExpense";
 import Monthly from "./components/monthly";
 
