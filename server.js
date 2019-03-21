@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const expenseRoutes = express.Router();
+const userRoutes = express.Router();
 const PORT = process.env.PORT || 4000; // "process.env.PORT" is Heroku's port if we're deploying there, then 4000 is a custom chosen port for dev testing
 const path = require("path");
 const dotenv = require("dotenv").config();
@@ -120,7 +121,7 @@ app.listen(PORT, function() {
 });
 
 // Route to add user 
-expenseRoutes.route('/users/add').post(function(req, res) {
+userRoutes.route('/add').post(function(req, res) {
     let user = new User(req.body);
     user.save()
         .then(user => {
@@ -129,4 +130,12 @@ expenseRoutes.route('/users/add').post(function(req, res) {
         .catch(err => {
             res.status(400).send('registering new user failed');
         });
+});
+
+app.use('/users', userRoutes);
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
+app.listen(PORT, function() {
+    console.log("Server is running on Port: " + PORT);
 });
