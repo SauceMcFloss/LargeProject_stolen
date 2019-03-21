@@ -112,14 +112,6 @@ expenseRoutes.delete("/delete/:id", (req, res, next) => {
   });
 });
 
-app.use('/expenses', expenseRoutes);
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-});
-app.listen(PORT, function() {
-    console.log("Server is running on Port: " + PORT);
-});
-
 // Route to add user 
 userRoutes.route('/add').post(function(req, res) {
     let user = new User(req.body);
@@ -132,6 +124,7 @@ userRoutes.route('/add').post(function(req, res) {
         });
 });
 
+app.use('/expenses', expenseRoutes);
 app.use('/users', userRoutes);
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
