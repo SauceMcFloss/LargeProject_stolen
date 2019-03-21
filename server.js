@@ -68,7 +68,7 @@ expenseRoutes.route('/:id').get(function(req, res) {
 });
 
 // Route to add expense 
-userRoutes.route('/add').post(function(req, res) {
+expenseRoutes.route('/add').post(function(req, res) {
     let expense = new Expense(req.body);
     expense.save()
         .then(expense => {
@@ -113,7 +113,7 @@ expenseRoutes.delete("/delete/:id", (req, res, next) => {
 });
 
 // Route to add user 
-/* userRoutes.route('/add').post(function(req, res) {
+userRoutes.route('/add').post(function(req, res) {
     let user = new User(req.body);
     user.save()
         .then(user => {
@@ -122,7 +122,7 @@ expenseRoutes.delete("/delete/:id", (req, res, next) => {
         .catch(err => {
             res.status(400).send('registering new user failed');
         });
-}); */
+});
 
 app.use('/expenses', expenseRoutes);
 app.use('/users', userRoutes);
