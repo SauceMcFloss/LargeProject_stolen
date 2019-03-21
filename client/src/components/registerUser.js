@@ -80,7 +80,7 @@ export default class RegisterUser extends Component {
         };
 
 		//if(this.state.password == this.state.repeat){
-			axios.post('/users/add', newUser)
+			axios.post('/expenses/adduser', newUser)
 				.then(res => console.log(res.data));
 				
 			this.setState = {

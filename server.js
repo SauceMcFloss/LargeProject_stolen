@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const expenseRoutes = express.Router();
-const userRoutes = express.Router();
+//const userRoutes = express.Router();
 const PORT = process.env.PORT || 4000; // "process.env.PORT" is Heroku's port if we're deploying there, then 4000 is a custom chosen port for dev testing
 const path = require("path");
 const dotenv = require("dotenv").config();
@@ -113,7 +113,7 @@ expenseRoutes.delete("/delete/:id", (req, res, next) => {
 });
 
 // Route to add user 
-userRoutes.route('/add').post(function(req, res) {
+expenseRoutes.route('/adduser').post(function(req, res) {
     let user = new User(req.body);
     user.save()
         .then(user => {
@@ -125,7 +125,7 @@ userRoutes.route('/add').post(function(req, res) {
 });
 
 app.use('/expenses', expenseRoutes);
-app.use('/users', userRoutes);
+//app.use('/users', userRoutes);
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
