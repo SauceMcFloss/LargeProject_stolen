@@ -5,9 +5,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import ExpensesList from "./components/expenseList";
 import CreateExpense from "./components/createExpense";
-import CreateUser from "./components/createUser";
 import EditExpense from "./components/editExpense";
 import Monthly from "./components/monthly";
+import RegisterUser from "./components/registerUser";
+import LoginUser from "./components/loginUser";
 
 import logo from "./giphy.gif";
 
@@ -39,6 +40,8 @@ class App extends Component {
           <Route path="/create" component={CreateExpense} />
 		  <Route path="/edit/:id" component={EditExpense} />
 		  <Route path="/monthly" component={Monthly} />
+		  <Route path="/register" component={RegisterUser} />
+		  <Route path="/login" component={LoginUser} />
         </div>
       </Router>
     );

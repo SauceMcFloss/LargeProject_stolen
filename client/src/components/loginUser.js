@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 
-export default class CreateUser extends Component {
+export default class LoginUser extends Component {
 
     constructor(props) {
         super(props);
@@ -111,7 +111,7 @@ export default class CreateUser extends Component {
     render() {		
         return (
             <div style={{marginTop: 10}}>
-                <h3>Create New User</h3>
+                <h3>Login New User</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
                         <label>First name: </label>
@@ -166,7 +166,7 @@ export default class CreateUser extends Component {
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Create User" className="btn btn-success" />
+                        <input type="submit" value="Login User" className="btn btn-success" />
                     </div>
                 </form>
             </div>
