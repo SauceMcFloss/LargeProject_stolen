@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 4000; // "process.env.PORT" is Heroku's port if
 const path = require("path");
 const dotenv = require("dotenv").config();
 let Expense = require('./models/expense');
+let User = require('./models/user');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "client", "build")))
@@ -117,4 +118,15 @@ app.get("*", (req, res) => {
 app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT);
 });
-//
+
+// Route to add user 
+expenseRoutes.route('/users/add').post(function(req, res) {
+    let user = new User(req.body);
+    user.save()
+        .then(user => {
+            res.status(200).json({'user': 'user registered successfully'});
+        })
+        .catch(err => {
+            res.status(400).send('registering new user failed');
+        });
+});
