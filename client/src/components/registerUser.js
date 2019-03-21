@@ -79,7 +79,7 @@ export default class RegisterUser extends Component {
             password: this.state.password
         };
 
-		if(this.state.password == this.state.repeat){
+		//if(this.state.password == this.state.repeat){
 			axios.post('/users/add', newUser)
 				.then(res => console.log(res.data));
 				
@@ -91,8 +91,8 @@ export default class RegisterUser extends Component {
 				password: '',
 				repeat: ''
 			}
-		}
-		else{
+		//}
+		/* else{
 			console.log('Passwords don\'t match');
 			
 			this.setState = {
@@ -103,7 +103,7 @@ export default class RegisterUser extends Component {
 				password: '',
 				repeat: ''
 			}
-		}
+		} */
 		
 		this.props.history.push('/');
     }
