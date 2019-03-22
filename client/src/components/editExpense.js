@@ -61,6 +61,7 @@ export default class EditExpense extends Component {
 		this.onChangeMonth = this.onChangeMonth.bind(this);
 		this.onChangeDay = this.onChangeDay.bind(this);
 		this.onChangeYear = this.onChangeYear.bind(this);
+		this.onChangeGroupCode = this.onChangeGroupCode.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.deleteExpense = this.deleteExpense.bind(this);
 
@@ -69,7 +70,8 @@ export default class EditExpense extends Component {
             amount: '',
             month: '',
             day: '',
-            year: ''
+            year: '',
+            groupCode: ''
         }
     }
 
@@ -81,7 +83,8 @@ export default class EditExpense extends Component {
                     amount: response.data.amount,
 					month: response.data.month,
 					day: response.data.day,
-					year: response.data.year
+					year: response.data.year,
+					groupCode: response.data.groupCode
                 })   
             })
             .catch(function (error) {
@@ -118,6 +121,12 @@ export default class EditExpense extends Component {
             year: e.target.value
         });
     }
+	
+	onChangeGroupCode(e) {
+        this.setState({
+            groupCode: e.target.value
+        });
+    }
 
     onSubmit(e) {
         e.preventDefault();
@@ -126,7 +135,8 @@ export default class EditExpense extends Component {
             amount: this.state.amount,
             month: this.state.month,
             day: this.state.day,
-            year: this.state.year
+            year: this.state.year,
+            groupCode: this.state.groupCode
         };
         console.log(obj);
         axios.post('/expenses/update/'+this.props.match.params.id, obj)
@@ -193,6 +203,14 @@ export default class EditExpense extends Component {
                                 className="form-control"
                                 value={this.state.year}
                                 onChange={this.onChangeYear}
+                                />
+                    </div>
+					<div className="form-group"> 
+                        <label>Group Code: </label>
+                        <input  type="text"
+                                className="form-control"
+                                value={this.state.groupCode}
+                                onChange={this.onChangeGroupCode}
                                 />
                     </div>
 
