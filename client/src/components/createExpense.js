@@ -113,14 +113,6 @@ export default class CreateExpense extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        
-        console.log(`Form submitted:`);
-        console.log(`Description: ${this.state.description}`);
-        console.log(`Amount: ${this.state.amount}`);
-		console.log(`Month: ${this.state.month}`);
-		console.log(`Day: ${this.state.day}`);
-		console.log(`Year: ${this.state.year}`);
-		console.log(`Code: ${this.state.groupCode}`);
      
         const newExpense = {
 			userId: "5c78ce86a484a23550339d6a",

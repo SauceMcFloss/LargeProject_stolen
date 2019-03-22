@@ -86,8 +86,6 @@ export default class TodosList extends Component {
             .catch(function (error){
                 console.log(error);
             })
-			
-        alert('Returning expense with code: ' + this.state.groupCode);
     }
 	
 

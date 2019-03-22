@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import axios from 'axios';
-
 
 export default class CreateUser extends Component {
 
@@ -64,7 +63,7 @@ export default class CreateUser extends Component {
 		console.log(`Username: ${this.state.username}`);
 		console.log(`Password: ${this.state.password}`);
      
-        const newUser = {
+        /* const newUser = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             email: this.state.email,
@@ -73,7 +72,7 @@ export default class CreateUser extends Component {
         };
 
         axios.post('/expenses/createUser', newUser)
-            .then(res => console.log(res.data));
+            .then(res => console.log(res.data)); */
  
 		this.setState = {
             firstName: '',
@@ -82,15 +81,16 @@ export default class CreateUser extends Component {
             username: '',
             password: ''
         }
-		
-		this.props.history.push('/');
+
+		this.props.history.push('/home');
     }
 
     render() {
 		
         return (
             <div style={{marginTop: 10}}>
-                <h3>Create New User</h3>
+                <h3><center>Register for Track Dat Ca$h!</center></h3>
+				<h5>Sign Up</h5>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
                         <label>First Name: </label>
@@ -138,6 +138,12 @@ export default class CreateUser extends Component {
                         <input type="submit" value="Create User" className="btn btn-success" />
                     </div>
                 </form>
+				<h5>Existing User?</h5>
+				<button className="btn btn-success">
+					<Link to="/" className="nav-link">
+						Login
+					</Link>
+				</button>
             </div>
         )
     }

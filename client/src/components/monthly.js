@@ -52,7 +52,6 @@ export default class TodosList extends Component {
     }
 	
 	onChangeMonth(month) {
-		console.log(month);
         axios.get('expenses/month/'+month)
             .then(response => {
 				temp = response.data;
