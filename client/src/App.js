@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import CreateUser from "./components/createUser";
+import LoginUser from "./components/loginUser";
 
 import ExpensesList from "./components/expenseList";
 import CreateExpense from "./components/createExpense";
@@ -35,11 +36,15 @@ class App extends Component {
 				<li className="navbar-item">
                   <Link to="/group" className="nav-link">Group</Link>
                 </li>
+				<li className="navbar-item">
+                  <Link to="/" className="nav-link">Logout</Link>
+                </li>
               </ul>
             </div>
 			<img src={logo} width="100" height="100" alt=""/>
           </nav>
           <br/>
+		  <Route path="/" exact component={LoginUser} />
 		  <Route path="/home" exact component={ExpensesList} />
           <Route path="/create" component={CreateExpense} />
 		  <Route path="/edit/:id" component={EditExpense} />

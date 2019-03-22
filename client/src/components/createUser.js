@@ -82,7 +82,7 @@ export default class CreateUser extends Component {
             password: ''
         }
 
-		this.props.history.push('/home');
+		this.props.history.push('/');
     }
 
     render() {
