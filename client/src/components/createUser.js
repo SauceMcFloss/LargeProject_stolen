@@ -63,7 +63,7 @@ export default class CreateUser extends Component {
 		console.log(`Username: ${this.state.username}`);
 		console.log(`Password: ${this.state.password}`);
      
-        /* const newUser = {
+        const newUser = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             email: this.state.email,
@@ -72,7 +72,7 @@ export default class CreateUser extends Component {
         };
 
         axios.post('/expenses/createUser', newUser)
-            .then(res => console.log(res.data)); */
+            .then(res => console.log(res.data));
  
 		this.setState = {
             firstName: '',

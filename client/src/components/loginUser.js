@@ -36,13 +36,13 @@ export default class CreateUser extends Component {
 		console.log(`Username: ${this.state.username}`);
 		console.log(`Password: ${this.state.password}`);
      
-        /* const checkUser = {
+        const checkUser = {
             username: this.state.username,
             password: this.state.password
         };
 
         axios.post('/expenses/loginUser', checkUser)
-            .then(res => console.log(res.data)); */
+            .then(res => console.log(res.data));
  
 		this.setState = {
             username: '',
