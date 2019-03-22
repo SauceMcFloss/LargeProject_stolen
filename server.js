@@ -9,7 +9,7 @@ const path = require("path");
 const dotenv = require("dotenv").config();
 let Expense = require('./models/expense');
 
-var globalUserId = '';
+var userId = '';
 
 let User = require('./models/user');
 const jwt = require("jsonwebtoken");
@@ -87,6 +87,8 @@ expenseRoutes.post("/loginUser", (req, res, next) => {
           expiresIn: "1h"
         });
 
+		userId = user[0]._id;
+
         return res.status(200).json({
           message: "Auth successful: User is logged in",
           username: user[0].username,
@@ -154,7 +156,7 @@ expenseRoutes.post("/createUser", (req, res, next) => {
 
 // Route to return ALL expenses in the database for a specific user.
 expenseRoutes.get("/getAllExpenses", (req, res, next) => {
-  const userId = "5c78ce86a484a23550339d6a";
+  //const userId = "5c78ce86a484a23550339d6a";
   Expense.find({userId: userId}, function(err, expenses) {
 	
 	if (err) {
@@ -167,7 +169,7 @@ expenseRoutes.get("/getAllExpenses", (req, res, next) => {
 
 // Route to return all expenses for a specific month
 expenseRoutes.get("/month/:newMonth", (req, res, next) => {
-  const userId = "5c78ce86a484a23550339d6a";
+  //const userId = "5c78ce86a484a23550339d6a";
   const month = req.params.newMonth;
   console.log(month);
   Expense.find({userId: userId, month: month}, function(err, expenses) {
@@ -236,7 +238,7 @@ expenseRoutes.route('/update/:id').post(function(req, res) {
 
 // Route to delete
 expenseRoutes.delete("/delete/:id", (req, res, next) => {
-  const userId = "5c78ce86a484a23550339d6a";
+  //const userId = "5c78ce86a484a23550339d6a";
   const id = req.params.id;
   Expense.findOneAndDelete({_id: id}, function(err, expenses) {
 	if (err) {
