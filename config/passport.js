@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const keys = require("../config/keys");
 
 // Load model
-const User = mongoose.model("User");
+const User = mongoose.model("users");
 
 // Load encryption?
 const opts = {};

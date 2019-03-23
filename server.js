@@ -38,7 +38,7 @@ app.use("/api/users", users);
 // Set Port for Deploy (default is Heroku's port)
 const PORT = process.env.PORT || 4000; 
 
-app.listen(PORT, () => console.log(`Server up and running on port ${PORT} !`));
+app.listen(port, () => console.log(`Server up and running on port ${PORT} !`));
 
 /* const expenseRoutes = express.Router();
 let Expense = require('./models/expense');
