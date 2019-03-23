@@ -1,32 +1,27 @@
 {
-  "name": "backend",
+  "name": "mern-auth",
   "version": "1.0.0",
-  "description": "",
+  "description": "Mern Auth Example",
   "main": "server.js",
   "scripts": {
+    "client-install": "npm install --prefix client",
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "engines": {
-    "node": "11.7.0"
-  },
-  "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
-    "cookie-parser": "^1.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^6.2.0",
+    "concurrently": "^4.0.1",
     "express": "^4.16.4",
-    "http-errors": "^1.7.2",
-    "jsonwebtoken": "^8.4.0",
-    "mongoose": "^5.4.17",
-    "morgan": "^1.9.1",
+    "is-empty": "^1.2.0",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.3.11",
     "passport": "^0.4.0",
-    "react-scripts": "^2.1.5"
+    "passport-jwt": "^4.0.0",
+    "validator": "^10.9.0"
   }
 }
