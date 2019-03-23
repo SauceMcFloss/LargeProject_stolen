@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 
+import { setCurrentUser, logoutUser } from "./actions/authActions";
+import { Provider } from "react-redux";
+import store from "./store";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import CreateUser from "./components/createUser";
@@ -15,6 +19,28 @@ import Monthly from "./components/monthly";
 import Group from "./components/groupPage";
 
 import logo from "./giphy.gif";
+
+import "./App.css";
+
+// Check for token to keep user logged in
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  const token = localStorage.jwtToken;
+  setAuthToken(token);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(token);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));
+  // Check for expired token
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+
+    // Redirect to login
+    window.location.href = "./login";
+  }
+}
 
 class App extends Component {
   render() {
@@ -38,15 +64,16 @@ class App extends Component {
 				<li className="navbar-item">
                   <Link to="/group" className="nav-link">Group</Link>
                 </li>
-				<li className="navbar-item">
+				/* <li className="navbar-item">
                   <Link to="/" className="nav-link">Logout</Link>
-                </li>
+                </li> */
               </ul>
             </div>
 			<img src={logo} width="100" height="100" alt=""/>
           </nav>
           <br/>
 		  <Route path="/" exact component={LoginUser} />
+		  <Route path="/register" exact component={CreateUser} />
 		  <Route path="/home" exact component={ExpensesList} />
           <Route path="/create" component={CreateExpense} />
 		  <Route path="/edit/:id" component={EditExpense} />
