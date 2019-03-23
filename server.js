@@ -73,47 +73,45 @@ expenseRoutes.route('/').get(function(req, res) {
 
 // Login route
 expenseRoutes.post("/loginUser", (req, res, next) => {
-  User.find({username: req.body.username}).exec().then(user => {
-    if (user.length < 1) {
-      return res.status(401).json({
-      message: "Auth failed: no username entered"
-      });
+  const username = req.body.username;
+  const password = req.body.password;
+
+  // Find user by email
+  User.findOne({ username }).then(user => {
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ emailnotfound: "Email not found" });
     }
-    bcrypt.compare(req.body.password, user[0].password, (err, result) => {
-      if (err) {
-        return res.status(401).json({
-        message: "Auth failed: password doesn't match"
-        });
-      }
-      if (result) {
-        const token = jwt.sign(
-        {
-          username: user[0].username,
-          userId: user[0]._id
-        },
-        process.env.JWT_KEY,
-        {
-          expiresIn: "1h"
-        });
 
-		userId = user[0]._id;
+    // Check password
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        // User matched
+        // Create JWT Payload
+        const payload = {
+          id: user.id,
+          name: user.name
+        };
 
-        return res.status(200).json({
-          message: "Auth successful: User is logged in",
-          username: user[0].username,
-          userId: user[0]._id,
-            //loggedIntoken: token
-        });
+        // Sign token
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          {
+            expiresIn: 31556926 // 1 year in seconds
+          },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token
+            });
+          }
+        );
+      } else {
+        return res
+          .status(400)
+          .json({ passwordincorrect: "Password incorrect" });
       }
-      res.status(401).json({
-        message: "Auth failed"
-      });
-    });
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({
-      error: err
     });
   });
 });
