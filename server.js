@@ -29,7 +29,7 @@ connection.once('open', function() {
 })
 
 // Passport middleware
-//app.use(passport.initialize());
+app.use(passport.initialize());
 
 // Passport config
 //require("./config/passport")(passport);
