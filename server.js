@@ -32,7 +32,7 @@ connection.once('open', function() {
 app.use(passport.initialize());
 
 // Passport config
-//require("./config/passport")(passport);
+require("./config/passport")(passport);
 
 // For mobile testing
 expenseRoutes.post('/all', (req, res, next) => {
