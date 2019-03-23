@@ -1,7 +1,7 @@
-// Dependencies
 const mongoose = require('mongoose');
 
-// Define schema
+// Add first name, last name, email
+
 const userSchema = mongoose.Schema({
 	_id: mongoose.Schema.Types.ObjectId,
 	firstName: { type: String, required: true},
