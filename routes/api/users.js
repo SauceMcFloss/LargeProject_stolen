@@ -10,7 +10,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
 // Load model
-const User = require("../models/user");
+const User = require("../../models/user");
 
 // Register route
 router.post("/register", (req, res) => {
@@ -53,7 +53,7 @@ router.post("/register", (req, res) => {
 				.catch(err => console.log(err));
 				});
 			});
-		}
+		})
 	});
 });
 
