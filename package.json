@@ -2,7 +2,7 @@
   "name": "mern-auth",
   "version": "1.0.0",
   "description": "Mern Auth Example",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "client-install": "npm install --prefix client",
     "start": "node server.js",
