@@ -1,42 +1,60 @@
-# mern-auth
+## Testing with POSTMAN or ARC
 
-![Final App](https://i.postimg.cc/tybZb8dL/final-MERNAuth.gif)
-Minimal full-stack MERN app with authentication using passport and JWTs.
+### Get ALL expenses in database
+GET request: https://trackdatcash.herokuapp.com/expenses/
+<br/>Input:
+``` No input required```
+Output:
+<br/>- returns all expenses in database
 
-This project uses the following technologies:
-
-- [React](https://reactjs.org) and [React Router](https://reacttraining.com/react-router/) for frontend
-- [Express](http://expressjs.com/) and [Node](https://nodejs.org/en/) for the backend
-- [MongoDB](https://www.mongodb.com/) for the database
-- [Redux](https://redux.js.org/basics/usagewithreact) for state management between React components
-
-## Medium Series
-
-- [Build a Login/Auth App with the MERN Stack — Part 1 (Backend)](https://blog.bitsrc.io/build-a-login-auth-app-with-mern-stack-part-1-c405048e3669)
-- [Build a Login/Auth App with the MERN Stack — Part 2 (Frontend & Redux Setup)](https://blog.bitsrc.io/build-a-login-auth-app-with-mern-stack-part-2-frontend-6eac4e38ee82)
-- [Build a Login/Auth App with the MERN Stack — Part 3 (Linking Redux with React Components)](https://blog.bitsrc.io/build-a-login-auth-app-with-the-mern-stack-part-3-react-components-88190f8db718)
-
-## Configuration
-
-Make sure to add your own `MONGOURI` from your [mLab](http://mlab.com) database in `config/keys.js`.
-
-```javascript
-module.exports = {
-  mongoURI: "YOUR_MONGO_URI_HERE",
-  secretOrKey: "secret"
-};
+### Get all expenses for a specific user
+GET request: https://trackdatcash.herokuapp.com/expenses/getAllExpenses
+<br/>Input:
 ```
-
-## Quick Start
-
-```javascript
-// Install dependencies for server & client
-npm install && npm run client-install
-
-// Run client & server with concurrently
-npm run dev
-
-// Server runs on http://localhost:5000 and client on http://localhost:3000
+{
+  "userId" : "5c78ce86a484a23550339d6a"
+}
 ```
+Output:
+<br/>- returns all expenses for a specific user
 
-For deploying to Heroku, please refer to [this](https://www.youtube.com/watch?v=71wSzpLyW9k) helpful video by TraversyMedia.
+### Add an expense 
+POST request: https://trackdatcash.herokuapp.com/expenses/add
+<br/>Input:
+```
+{
+  "userId" : "5c78ce86a484a23550339d6a",
+  "description" : "testing ARC", 
+  "amount" : 0,
+  "month" : "Mar",
+  "day" : 10,
+  "year" : 2019
+}
+```
+Output:
+```success: <expenseId>```
+
+### Update an expense 
+POST request: https://trackdatcash.herokuapp.com/expenses/update/:id
+<br/>Input:
+```
+{
+  "description" : "Updated item", 
+  "amount" : 15,
+  "month" : "Aug",
+  "day" : 13,
+  "year" : 2018
+}
+```
+Output:
+```success: <expenseId>```
+
+- the /:id in the url is the expenseID which you can find from using the /expenses route
+    - ex: https://trackdatcash.herokuapp.com/expenses/update/5c85c8617629140017ad930a
+- this updates an expense
+
+### Delete an expense 
+DELETE request: https://trackdatcash.herokuapp.com/expenses/delete/:id
+<br/>Input:
+<br/>- delete expense from database
+<br/>- does not need JSON object
