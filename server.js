@@ -1,17 +1,17 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const passport = require("passport");
 const cors = require('cors');
 const mongoose = require('mongoose');
 const expenseRoutes = express.Router();
 const PORT = process.env.PORT || 4000; // "process.env.PORT" is Heroku's port if we're deploying there, then 4000 is a custom chosen port for dev testing
 const path = require("path");
 const dotenv = require("dotenv").config();
+
 let Expense = require('./models/expense');
-
-var globalUserId = '';
-
 let User = require('./models/user');
+
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
