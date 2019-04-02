@@ -10,7 +10,7 @@ const bcrypt = require("bcryptjs");
 
 const app = express();
 
-//const expenseRoutes = express.Router();
+const expenseRoutes = express.Router();
 
 let Expense = require('./models/expense');
 let User = require('./models/user');
@@ -30,12 +30,12 @@ const db = require("./config/keys").mongoURI;
 
 // Connect to MongoDB
 mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true }
-  )
-  .then(() => console.log("MongoDB successfully connected"))
-  .catch(err => console.log(err));
+	.connect(
+		db,
+		{ useNewUrlParser: true }
+		)
+		.then(() => console.log("MongoDB successfully connected"))
+		.catch(err => console.log(err));
 
 // Passport middleware
 app.use(passport.initialize());
@@ -45,9 +45,7 @@ require("./config/passport")(passport);
 
 // -----ROUTES-----
 
-const users = require("./routes/api/users");
-
-/*   // For mobile testing
+// For mobile testing
 expenseRoutes.post('/all', (req, res, next) => {
   const userId = req.body.userId;
   Expense.find({userId: userId})
@@ -272,8 +270,7 @@ expenseRoutes.delete("/delete/:id", (req, res, next) => {
 
 // -----END ROUTES-----
 
-app.use('/expenses', expenseRoutes);   */
-app.use("/api/users", users);
+app.use('/expenses', expenseRoutes);
 
 const PORT = process.env.PORT || 4000; // "process.env.PORT" is Heroku's port if we're deploying there, then 4000 is a custom chosen port for dev testing
 
