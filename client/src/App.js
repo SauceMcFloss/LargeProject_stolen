@@ -24,6 +24,8 @@ import Dashboard from "./components/dashboard/Dashboard";
 
 import "./App.css";
 
+import logo from "./giphy.gif";
+
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
