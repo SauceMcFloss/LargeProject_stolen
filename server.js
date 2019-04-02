@@ -1,12 +1,14 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const passport = require("passport");
 const cors = require('cors');
 const path = require("path");
 const dotenv = require("dotenv").config();
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+//const jwt = require("jsonwebtoken");
+//const bcrypt = require("bcryptjs");
+
+const users = require("./routes/api/users");
 
 const app = express();
 
@@ -44,8 +46,6 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 // -----ROUTES-----
-
-const users = require("./routes/api/users");
 
 /*   // For mobile testing
 expenseRoutes.post('/all', (req, res, next) => {
