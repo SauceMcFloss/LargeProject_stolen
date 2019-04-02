@@ -8,8 +8,6 @@ const dotenv = require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-const users = require("./routes/api/users");
-
 const app = express();
 
 const expenseRoutes = express.Router();
