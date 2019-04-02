@@ -1,5 +1,5 @@
 const express = require("express");
-const userRoutes = express.Router();
+const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
@@ -15,7 +15,7 @@ const User = require("../../models/User");
 // @route POST api/users/register
 // @desc Register user
 // @access Public
-userRoutes.post("/register", (req, res) => {
+router.post("/register", (req, res) => {
   // Form validation
 
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -53,7 +53,7 @@ userRoutes.post("/register", (req, res) => {
 // @route POST api/users/login
 // @desc Login user and return JWT token
 // @access Public
-userRoutes.post("/login", (req, res) => {
+router.post("/login", (req, res) => {
   // Form validation
 
   const { errors, isValid } = validateLoginInput(req.body);
@@ -106,4 +106,4 @@ userRoutes.post("/login", (req, res) => {
   });
 });
 
-module.exports = userRoutes;
+module.exports = router;
