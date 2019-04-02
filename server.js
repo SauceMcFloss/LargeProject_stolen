@@ -45,6 +45,8 @@ require("./config/passport")(passport);
 
 // -----ROUTES-----
 
+const users = require("./routes/api/users");
+
 // For mobile testing
 expenseRoutes.post('/all', (req, res, next) => {
   const userId = req.body.userId;
@@ -271,6 +273,7 @@ expenseRoutes.delete("/delete/:id", (req, res, next) => {
 // -----END ROUTES-----
 
 app.use('/expenses', expenseRoutes);
+app.use("/api/users", users);
 
 const PORT = process.env.PORT || 4000; // "process.env.PORT" is Heroku's port if we're deploying there, then 4000 is a custom chosen port for dev testing
 
