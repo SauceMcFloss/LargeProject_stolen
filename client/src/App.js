@@ -9,12 +9,20 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import CreateUser from "./components/createUser";
-
 import ExpensesList from "./components/expenseList";
 import CreateExpense from "./components/createExpense";
 import EditExpense from "./components/editExpense";
 import Monthly from "./components/monthly";
 import Group from "./components/groupPage";
+
+import Navbar from "./components/layout/Navbar";
+import Landing from "./components/layout/Landing";
+import Register from "./components/auth/Register";
+import Login from "./components/auth/Login";
+import PrivateRoute from "./components/private-route/PrivateRoute";
+import Dashboard from "./components/dashboard/Dashboard";
+
+import "./App.css";
 
 import logo from "./giphy.gif";
 
