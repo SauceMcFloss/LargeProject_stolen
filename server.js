@@ -12,8 +12,8 @@ const app = express();
 
 //const expenseRoutes = express.Router();
 
-//let Expense = require('./models/expense');
-//let User = require('./models/user');
+let Expense = require('./models/expense');
+let User = require('./models/user');
 
 // Bodyparser middleware
 app.use(cors());
