@@ -36,10 +36,6 @@ mongoose
 		)
 		.then(() => console.log("MongoDB successfully connected"))
 		.catch(err => console.log(err));
-/* const connection = mongoose.connection;
-connection.once('open', function() {
-    console.log("MongoDB database connection established successfully");
-}) */
 
 // Passport middleware
 app.use(passport.initialize());
