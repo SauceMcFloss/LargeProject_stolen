@@ -49,6 +49,7 @@ if (localStorage.jwtToken) {
 class App extends Component {
   render() {
     return (
+      <Provider store={store}>
       <Router>
         <div className="container">
 		<center><h1><font size = "10"><b>Track Dat CA$H</b></font></h1></center><br/>
@@ -81,6 +82,7 @@ class App extends Component {
 		  <Route path="/group" component={Group} />
         </div>
       </Router>
+      </Provider>
     );
   }
 }
