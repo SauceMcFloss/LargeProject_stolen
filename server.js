@@ -180,13 +180,7 @@ expenseRoutes.post("/createUser", (req, res, next) => {
 
 // Route to return ALL expenses in the database for a specific user.
 expenseRoutes.post("/getAllExpenses", (req, res, next) => {
-  const user = localStorage.getItem("jwtToken");//"5c78ce86a484a23550339d6a";
-  console.log("user: " + user);
-  const decoded = jwt_decode(token);
-  console.log("decoded: " + decoded);
-  const userId = decoded.id;
-  console.log("userId: " + userId);
-  Expense.find({userId: userId}, function(err, expenses) {
+  Expense.find({userId: "5c78ce86a484a23550339d6a"}, function(err, expenses) {
 	
 	if (err) {
 		console.log(err);
