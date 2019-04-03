@@ -44,7 +44,7 @@ class TodosList extends Component {
 
     componentDidMount() {
 		console.log("Attempting getAllExpenses GET");
-        axios.get('/expenses/getAllExpenses')
+        axios.post('/expenses/getAllExpenses')
             .then(response => {
 				temp = response.data;
 				temp = sortBy(temp, ['description', 'amount']);
