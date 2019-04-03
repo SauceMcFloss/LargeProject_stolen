@@ -4,10 +4,6 @@ import axios from 'axios';
 import sortBy from 'lodash/sortBy';
 import sumBy from 'lodash/sumBy';
 
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
-
 var temp = [];
 var sum = 0;
 
@@ -25,10 +21,6 @@ const Expense = props => (
 )
 
 export default class TodosList extends Component {
-	onLogoutClick = e => {
-    e.preventDefault();
-    this.props.logoutUser();
-  };
 
     constructor(props) {
         super(props);
@@ -74,22 +66,8 @@ export default class TodosList extends Component {
     }
 
     render() {	
-		const { user } = this.props.auth;
-		
         return (
             <div>
-				<button
-				  style={{
-					width: "150px",
-					borderRadius: "3px",
-					letterSpacing: "1.5px",
-					marginTop: "1rem"
-				  }}
-				  onClick={this.onLogoutClick}
-				  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-				>
-				  Logout
-				</button>
                 <h3><center>All Expenses</center></h3>
                 <h5>Total: ${this.state.total} </h5>
                 <table className="table table-striped table-bordered" 
