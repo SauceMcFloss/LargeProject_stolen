@@ -4,6 +4,10 @@ import axios from 'axios';
 import sortBy from 'lodash/sortBy';
 import sumBy from 'lodash/sumBy';
 
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authActions";
+
 var temp = [];
 var sum = 0;
 
@@ -34,7 +38,7 @@ export default class TodosList extends Component {
     }
 
     componentDidMount() {
-        axios.get('/expenses/getAllExpenses')
+        axios.post('/expenses/getAllExpenses')
             .then(response => {
 				temp = response.data;
 				temp = sortBy(temp, ['description', 'amount']);
