@@ -16,7 +16,6 @@ const validateLoginInput = require("./validation/login");
 const app = express();
 
 const expenseRoutes = express.Router();
-const users = express.Router();
 
 let Expense = require('./models/expense');
 let User = require('./models/user');
@@ -279,7 +278,7 @@ app.use('/expenses', expenseRoutes); */
 // @route POST api/users/login
 // @desc Login user and return JWT token
 // @access Public
-users.post("/login", (req, res) => {
+router.post("/login", (req, res) => {
   // Form validation
 
   const { errors, isValid } = validateLoginInput(req.body);
