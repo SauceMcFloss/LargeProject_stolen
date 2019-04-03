@@ -24,7 +24,7 @@ const Expense = props => (
     </tr>
 )
 
-class TodosList extends Component {
+export default class TodosList extends Component {
 
     constructor(props) {
         super(props);
