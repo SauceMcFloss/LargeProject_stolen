@@ -274,7 +274,7 @@ expenseRoutes.delete("/delete/:id", (req, res, next) => {
   });
 });
 
-// @route POST api/users/register
+// @route POST expenses/register
 // @desc Register user
 // @access Public
 expenseRoutes.post("/register", (req, res) => {
@@ -312,7 +312,7 @@ expenseRoutes.post("/register", (req, res) => {
   });
 });
 
-// @route POST api/users/login
+// @route POST expenses/login
 // @desc Login user and return JWT token
 // @access Public
 expenseRoutes.post("/login", (req, res) => {
@@ -365,6 +365,21 @@ expenseRoutes.post("/login", (req, res) => {
           .json({ passwordincorrect: "Password incorrect" });
       }
     });
+  });
+});
+
+// @route POST expenses/loggedListAll
+// @desc Return only the expenses with the logged in user's userId
+// @access Public
+expenseRoutes.post("/loggedListAll", (req, res) => {
+  const userId = "5c78ce86a484a23550339d6a";
+  Expense.find({userId: userId}, function(err, expenses) {
+	
+	if (err) {
+		console.log(err);
+	} else {
+		res.json(expenses);
+	}
   });
 });
 

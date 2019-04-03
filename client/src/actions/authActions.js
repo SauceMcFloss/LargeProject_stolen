@@ -6,7 +6,7 @@ import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types";
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
-	//console.log("We made it to register, at least.");
+	console.log("Attempting registerUser POST");
   axios
     .post("/expenses/register", userData)
     .then(res => history.push("/login"))
@@ -20,7 +20,7 @@ export const registerUser = (userData, history) => dispatch => {
 
 // Login - get user token
 export const loginUser = userData => dispatch => {
-	//console.log("We made it to login, at least.");
+	console.log("Attempting loginUser POST");
   axios
     .post("/expenses/login", userData)
     .then(res => {
