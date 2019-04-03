@@ -38,8 +38,6 @@ export default class TodosList extends Component {
     }
 
     componentDidMount() {
-		const { user } = this.props.auth;
-		
         axios.post('/expenses/getAllExpenses')
             .then(response => {
 				temp = response.data;
