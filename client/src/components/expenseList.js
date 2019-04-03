@@ -8,6 +8,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
 
+import jwt_decode from "jwt-decode";
+
 var temp = [];
 var sum = 0;
 
