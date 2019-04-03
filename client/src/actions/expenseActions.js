@@ -6,7 +6,7 @@ import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types";
 
 // List all expenses for logged in user
 export const loggedList = userData => => {
-	console.log("Displaying all expenses for logged in user.");
+	console.log("Attempting loggedList POST");
 	axios
 		.post("/expenses/loggedListAll", userData)
 		.then(res => {
