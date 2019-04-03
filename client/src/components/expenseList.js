@@ -43,6 +43,7 @@ class TodosList extends Component {
 	};
 
     componentDidMount() {
+		console.log("Attempting getAllExpenses GET");
         axios.get('/expenses/getAllExpenses')
             .then(response => {
 				temp = response.data;
