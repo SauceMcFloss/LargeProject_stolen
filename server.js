@@ -286,7 +286,7 @@ expenseRoutes.post("/register", (req, res, next) => {
 		.catch(err => console.log(err));
 });
 
-app.use('/api/users', userRoutes);
+app.use('/users', userRoutes);
 
 const PORT = process.env.PORT || 4000; // "process.env.PORT" is Heroku's port if we're deploying there, then 4000 is a custom chosen port for dev testing
 
