@@ -107,3 +107,17 @@ export default class TodosList extends Component {
         )
     }
 }
+
+TodosList.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(TodosList);
