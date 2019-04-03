@@ -10,8 +10,7 @@ const bcrypt = require("bcryptjs");
 
 const app = express();
 
-//const expenseRoutes = express.Router();
-const userRoutes = express.Router();
+const expenseRoutes = express.Router();
 
 let Expense = require('./models/expense');
 let User = require('./models/user');
@@ -272,21 +271,6 @@ expenseRoutes.delete("/delete/:id", (req, res, next) => {
 app.use('/expenses', expenseRoutes);
 
 // -----END ROUTES----- */
-
-// Add new user
-expenseRoutes.post("/register", (req, res, next) => {
-	const newUser = new User({
-		name: req.body.name,
-		email: req.body.email,
-		password: req.body.password
-	});
-	newUser
-		.save()
-		.then(user => res.json(user))
-		.catch(err => console.log(err));
-});
-
-app.use('/api/users', userRoutes);
 
 const PORT = process.env.PORT || 4000; // "process.env.PORT" is Heroku's port if we're deploying there, then 4000 is a custom chosen port for dev testing
 
