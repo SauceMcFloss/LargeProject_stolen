@@ -88,6 +88,40 @@ export default class TodosList extends Component {
         return (
             <div>
               <h3><center><img src={logo} width="150" height="75" alt=""/>	Monthly Lists	<img src={logo} width="150" height="75" alt="" /></center></h3>
+			  
+			  <nav className="navbar navbar-expand-sm navbar-light bg-light">
+					<img src={logo} width="100" height="100" alt=""/>
+					<div className="collpase navbar-collapse">
+					  <ul className="navbar-nav mr-auto">
+						<li className="navbar-item">
+						  <Link to="/dashboard" className="nav-link">All Expenses</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/create" className="nav-link">Create Expense</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/monthly" className="nav-link">Monthly</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/group" className="nav-link">Group</Link>
+						</li>
+					  </ul>
+					</div>
+					<img src={logo} width="100" height="100" alt=""/>
+				</nav>
+				<button
+					style={{
+					width: "150px",
+					borderRadius: "3px",
+					letterSpacing: "1.5px",
+					marginTop: "1rem"
+					}}
+					onClick={this.onLogoutClick}
+					className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+					>
+					Logout
+				</button>
+				
 			  <h5>Total: ${this.state.total} </h5>
 				<div className="container">
 				  <nav className="navbar navbar-expand-sm navbar-light bg-light">

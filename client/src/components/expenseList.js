@@ -88,6 +88,7 @@ class TodosList extends Component {
         return (
             <div>
                 <h3><center>All Expenses</center></h3>
+				
 				<nav className="navbar navbar-expand-sm navbar-light bg-light">
 					<img src={logo} width="100" height="100" alt=""/>
 					<div className="collpase navbar-collapse">
@@ -120,6 +121,7 @@ class TodosList extends Component {
 					>
 					Logout
 				</button>
+				
                 <h5>Total: ${this.state.total} </h5>
                 <table className="table table-striped table-bordered" 
 				  style={{ marginTop: 30 }} >
