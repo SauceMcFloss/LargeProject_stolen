@@ -8,6 +8,8 @@ const dotenv = require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const keys = require("./config/keys");
+import jwt_decode from "jwt-decode";
+
 //const passport = require("passport");
 
 // Load input validation
