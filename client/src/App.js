@@ -57,6 +57,27 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Switch>
+				<nav className="navbar navbar-expand-sm navbar-light bg-light">
+				<img src={logo} width="100" height="100" alt=""/>
+				<div className="collpase navbar-collapse">
+				  <ul className="navbar-nav mr-auto">
+					<li className="navbar-item">
+					  <Link to="/" className="nav-link">All Expenses</Link>
+					</li>
+					<li className="navbar-item">
+					  <Link to="/create" className="nav-link">Create Expense</Link>
+					</li>
+					<li className="navbar-item">
+					  <Link to="/monthly" className="nav-link">Monthly</Link>
+					</li>
+					<li className="navbar-item">
+					  <Link to="/group" className="nav-link">Group</Link>
+					</li>
+				  </ul>
+				</div>
+				<img src={logo} width="100" height="100" alt=""/>
+			  </nav>
+			  
               <PrivateRoute exact path="/dashboard" component={ExpensesList} />
 			  <PrivateRoute exact path="/create" component={CreateExpense} />
 			  <PrivateRoute exact path="/edit/:id" component={EditExpense} />
