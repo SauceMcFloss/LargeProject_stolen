@@ -179,7 +179,7 @@ expenseRoutes.post("/createUser", (req, res, next) => {
 });
 
 // Route to return ALL expenses in the database for a specific user.
-expenseRoutes.route("/getAllExpenses").post(function(req, res) => {
+expenseRoutes.post("/getAllExpenses", (req, res, next) => {
 	let user = new User(req.body);
 	console.log("userId: " + user.userId);
   Expense.find({userId: user.userId}, function(err, expenses) {
