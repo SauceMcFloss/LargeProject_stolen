@@ -8,7 +8,7 @@ const dotenv = require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const keys = require("./config/keys");
-import jwt_decode from "jwt-decode";
+//const passport = require("passport");
 
 // Load input validation
 const validateRegisterInput = require("./validation/register");
@@ -180,7 +180,7 @@ expenseRoutes.post("/createUser", (req, res, next) => {
 
 // Route to return ALL expenses in the database for a specific user.
 expenseRoutes.post("/getAllExpenses", (req, res, next) => {
-	const userId = jwt_decode(localStorage.getItem("jwtToken")).id;
+	const userId = req.body.toString();
 	console.log("userId: " + userId);
   Expense.find({userId: userId}, function(err, expenses) {
 	
