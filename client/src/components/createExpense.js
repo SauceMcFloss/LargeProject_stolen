@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 
+import { Link } from 'react-router-dom';
+import sortBy from 'lodash/sortBy';
+import sumBy from 'lodash/sumBy';
+
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../actions/authActions";
+
+import jwt_decode from "jwt-decode";
+
 const optionsMonth = [
   { value: 'Jan', label: 'Jan' },
   { value: 'Feb', label: 'Feb' },
@@ -121,9 +131,11 @@ export default class CreateExpense extends Component {
 		console.log(`Day: ${this.state.day}`);
 		console.log(`Year: ${this.state.year}`);
 		console.log(`Code: ${this.state.groupCode}`);
+		
+		const idOfUser = jwt_decode(localStorage.getItem("jwtToken")).id;
      
         const newExpense = {
-			userId: "5c78ce86a484a23550339d6a",
+			userId: idOfUser,
             description: this.state.description,
             amount: this.state.amount,
             month: this.state.month,
