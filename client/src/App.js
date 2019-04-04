@@ -58,6 +58,10 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={ExpensesList} />
+			  <PrivateRoute exact path="/create" component={CreateExpense} />
+			  <PrivateRoute exact path="/edit/:id" component={EditExpense} />
+			  <PrivateRoute exact path="/monthly" component={Monthly} />
+			  <PrivateRoute exact path="/group" component={Group} />
             </Switch>
           </div>
         </Router>
