@@ -51,7 +51,7 @@ class TodosList extends Component {
 		
         axios.get('/expenses/getAllExpenses', {
 			params: {
-				userId: idOfUser
+				userId: "5c9945edf5c8de55c0564c63"
 			}
 		})
             .then(response => {
