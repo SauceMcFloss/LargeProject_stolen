@@ -13,9 +13,9 @@ export const registerUser = (userData, history) => dispatch => {
 	};
   axios
     .post("/expenses/register", userData)
-    .then(
+    .then(res => {
 		dispatch(loginUser(userLogin));
-	)
+	})
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
