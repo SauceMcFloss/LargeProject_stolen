@@ -49,14 +49,7 @@ class TodosList extends Component {
 		const idOfUser = jwt_decode(localStorage.getItem("jwtToken")).id;
 		console.log("idOfUser: " + idOfUser);
 		
-		const User = {
-			userId: idOfUser,
-			email: '',
-			password: '',
-			date: ''
-		};
-		
-        axios.post('/expenses/getAllExpenses', User)
+        axios.post('/expenses/getAllExpenses')
             .then(response => {
 				temp = response.data;
 				temp = sortBy(temp, ['description', 'amount']);
