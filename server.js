@@ -369,21 +369,6 @@ expenseRoutes.post("/login", (req, res) => {
   });
 });
 
-// @route POST expenses/loggedListAll
-// @desc Return only the expenses with the logged in user's userId
-// @access Public
-expenseRoutes.post("/loggedListAll", (req, res) => {
-  const userId = "5c78ce86a484a23550339d6a";
-  Expense.find({userId: userId}, function(err, expenses) {
-	
-	if (err) {
-		console.log(err);
-	} else {
-		res.json(expenses);
-	}
-  });
-});
-
 app.use('/expenses', expenseRoutes);
 
 // -----END ROUTES----- 
