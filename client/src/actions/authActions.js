@@ -13,7 +13,7 @@ export const registerUser = (userData, history) => dispatch => {
 	};
   axios
     .post("/expenses/register", userData)
-    .then(res => 
+    .then(
 		dispatch(loginUser(userLogin));
 	)
     .catch(err =>
