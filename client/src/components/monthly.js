@@ -5,6 +5,12 @@ import sortBy from 'lodash/sortBy';
 import sumBy from 'lodash/sumBy';
 import logo from "../krabs.gif";
 
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../actions/authActions";
+
+import jwt_decode from "jwt-decode";
+
 var temp = [];
 var sum = 0;
 
@@ -21,7 +27,7 @@ const Expense = props => (
     </tr>
 )
 
-export default class TodosList extends Component {
+class TodosList extends Component {
 
     constructor(props) {
         super(props);
@@ -34,6 +40,11 @@ export default class TodosList extends Component {
 			total: 0
 		};
     }
+	
+	onLogoutClick = e => {
+		e.preventDefault();
+		this.props.logoutUser();
+	};
 	
 	componentDidMount() {		
         axios.get('/expenses/month/Jan')
@@ -174,3 +185,17 @@ export default class TodosList extends Component {
         )
     }
 }
+
+TodosList.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(TodosList);
