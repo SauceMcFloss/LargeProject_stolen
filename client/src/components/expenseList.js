@@ -50,7 +50,7 @@ class TodosList extends Component {
 		console.log("idOfUser: " + idOfUser);
 		
         axios.post('/expenses/getAllExpenses', {
-			id: '5c9945edf5c8de55c0564c63'
+			id: idOfUser
 		})
             .then(response => {
 				temp = response.data;
