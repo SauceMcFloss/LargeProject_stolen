@@ -10,6 +10,8 @@ import { logoutUser } from "../actions/authActions";
 
 import jwt_decode from "jwt-decode";
 
+import logo from "../giphy.gif";
+
 var temp = [];
 var sum = 0;
 
