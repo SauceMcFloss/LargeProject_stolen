@@ -49,14 +49,14 @@ class TodosList extends Component {
 		const idOfUser = jwt_decode(localStorage.getItem("jwtToken")).id;
 		console.log("idOfUser: " + idOfUser);
 		
-		/* const User = {
+		const User = {
 			userId: "5c9945edf5c8de55c0564c63",
 			email: '',
 			password: ''
-        }; */
+        };
 		
         axios.post('/expenses/getAllExpenses', {
-			id: idOfUser
+			id: userId
 		})
             .then(response => {
 				temp = response.data;
