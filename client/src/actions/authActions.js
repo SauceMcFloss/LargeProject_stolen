@@ -7,9 +7,16 @@ import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types";
 // Register User
 export const registerUser = (userData, history) => dispatch => {
 	console.log("Attempting registerUser POST");
+	const userLogin = {
+	  email: userData.email,
+	  password: userData.password
+	};
   axios
     .post("/expenses/register", userData)
-    .then(res => history.push("/login"))
+    .then(res => {
+		dispatch(loginUser(userLogin));
+		history.push("/dashboard");
+	})
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
