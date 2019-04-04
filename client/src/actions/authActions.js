@@ -15,6 +15,7 @@ export const registerUser = (userData, history) => dispatch => {
     .post("/expenses/register", userData)
     .then(res => {
 		dispatch(loginUser(userLogin));
+		history.push("/dashboard");
 	})
     .catch(err =>
       dispatch({
