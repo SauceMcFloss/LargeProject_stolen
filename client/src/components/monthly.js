@@ -47,7 +47,10 @@ class TodosList extends Component {
 	};
 	
 	componentDidMount() {		
-        axios.get('/expenses/month/Jan')
+		const idOfUser = jwt_decode(localStorage.getItem("jwtToken")).id;
+        axios.post('/expenses/month/Jan', {
+			id: idOfUser
+		})
             .then(response => {
 				temp = response.data;
 				temp = sortBy(temp, ['description', 'amount']);
@@ -63,8 +66,11 @@ class TodosList extends Component {
     }
 	
 	onChangeMonth(month) {
+		const idOfUser = jwt_decode(localStorage.getItem("jwtToken")).id;
 		console.log(month);
-        axios.get('expenses/month/'+month)
+        axios.post('expenses/month/'+month, {
+			id: idOfUser
+		})
             .then(response => {
 				temp = response.data;
 				temp = sortBy(temp, ['description', 'amount']);
