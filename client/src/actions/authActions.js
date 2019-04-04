@@ -9,7 +9,13 @@ export const registerUser = (userData, history) => dispatch => {
 	console.log("Attempting registerUser POST");
   axios
     .post("/expenses/register", userData)
-    .then(res => history.push("/login"))
+    .then(res => 
+		const userLogin = {
+		  email: userData.email,
+		  password: userData.password
+		};
+		dispatch(loginUser(userLogin));
+	)
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
