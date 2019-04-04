@@ -2,6 +2,18 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 
+import { Link } from 'react-router-dom';
+import sortBy from 'lodash/sortBy';
+import sumBy from 'lodash/sumBy';
+
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../actions/authActions";
+
+import jwt_decode from "jwt-decode";
+
+import logo from "../giphy.gif";
+
 const optionsMonth = [
   { value: 'Jan', label: 'Jan' },
   { value: 'Feb', label: 'Feb' },
@@ -121,9 +133,11 @@ export default class CreateExpense extends Component {
 		console.log(`Day: ${this.state.day}`);
 		console.log(`Year: ${this.state.year}`);
 		console.log(`Code: ${this.state.groupCode}`);
+		
+		const idOfUser = jwt_decode(localStorage.getItem("jwtToken")).id;
      
         const newExpense = {
-			userId: "5c78ce86a484a23550339d6a",
+			userId: idOfUser,
             description: this.state.description,
             amount: this.state.amount,
             month: this.state.month,
@@ -144,7 +158,7 @@ export default class CreateExpense extends Component {
             groupCode: ''
         }
 		
-		this.props.history.push('/');
+		this.props.history.push('/dashboard');
     }
 
     render() {
@@ -154,6 +168,28 @@ export default class CreateExpense extends Component {
         return (
             <div style={{marginTop: 10}}>
                 <h3>Create New Expense</h3>
+				
+				<nav className="navbar navbar-expand-sm navbar-light bg-light">
+					<img src={logo} width="100" height="100" alt=""/>
+					<div className="collpase navbar-collapse">
+					  <ul className="navbar-nav mr-auto">
+						<li className="navbar-item">
+						  <Link to="/dashboard" className="nav-link">All Expenses</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/create" className="nav-link">Create Expense</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/monthly" className="nav-link">Monthly</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/group" className="nav-link">Group</Link>
+						</li>
+					  </ul>
+					</div>
+					<img src={logo} width="100" height="100" alt=""/>
+				</nav>
+				
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
                         <label>Description: </label>

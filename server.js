@@ -1,29 +1,55 @@
 const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const cors = require('cors');
 const mongoose = require('mongoose');
-const expenseRoutes = express.Router();
-const PORT = process.env.PORT || 4000; // "process.env.PORT" is Heroku's port if we're deploying there, then 4000 is a custom chosen port for dev testing
+const bodyParser = require('body-parser');
+const passport = require("passport");
+const cors = require('cors');
 const path = require("path");
 const dotenv = require("dotenv").config();
-let Expense = require('./models/expense');
-
-var globalUserId = '';
-
-let User = require('./models/user');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const keys = require("./config/keys");
+//const passport = require("passport");
 
+// Load input validation
+const validateRegisterInput = require("./validation/register");
+const validateLoginInput = require("./validation/login");
 
+const app = express();
+
+const expenseRoutes = express.Router();
+
+let Expense = require('./models/expense');
+let User = require('./models/user');
+
+// Bodyparser middleware
 app.use(cors());
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "client", "build")))
-mongoose.connect('mongodb://Admin:Hello2@cluster0-shard-00-00-7dwwj.mongodb.net:27017,cluster0-shard-00-01-7dwwj.mongodb.net:27017,cluster0-shard-00-02-7dwwj.mongodb.net:27017/testLarge?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true', { useNewUrlParser: true });
-const connection = mongoose.connection;
-connection.once('open', function() {
-    console.log("MongoDB database connection established successfully");
-})
+
+// DB Config
+const db = require("./config/keys").mongoURI;
+
+// Connect to MongoDB
+mongoose
+	.connect(
+		db,
+		{ useNewUrlParser: true }
+		)
+		.then(() => console.log("MongoDB successfully connected"))
+		.catch(err => console.log(err));
+
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport config
+require("./config/passport")(passport);
+
+// -----ROUTES-----
 
 // For mobile testing
 expenseRoutes.post('/all', (req, res, next) => {
@@ -153,10 +179,9 @@ expenseRoutes.post("/createUser", (req, res, next) => {
 });
 
 // Route to return ALL expenses in the database for a specific user.
-expenseRoutes.get("/getAllExpenses", (req, res, next) => {
-  const userId = "5c78ce86a484a23550339d6a";
-  Expense.find({userId: userId}, function(err, expenses) {
-	
+expenseRoutes.route("/getAllExpenses").post(function(req, res) {
+	const usersId = req.body.id.toString();
+  Expense.find({userId: usersId}, function(err, expenses) {
 	if (err) {
 		console.log(err);
 	} else {
@@ -166,11 +191,11 @@ expenseRoutes.get("/getAllExpenses", (req, res, next) => {
 });
 
 // Route to return all expenses for a specific month
-expenseRoutes.get("/month/:newMonth", (req, res, next) => {
-  const userId = "5c78ce86a484a23550339d6a";
+expenseRoutes.route("/month/:newMonth").post(function(req, res) {
+  const usersId = req.body.id.toString();
   const month = req.params.newMonth;
   console.log(month);
-  Expense.find({userId: userId, month: month}, function(err, expenses) {
+  Expense.find({userId: usersId, month: month}, function(err, expenses) {
 	console.log(expenses);
 	if (err) {
 		console.log(err);
@@ -248,7 +273,106 @@ expenseRoutes.delete("/delete/:id", (req, res, next) => {
   });
 });
 
+// @route POST expenses/register
+// @desc Register user
+// @access Public
+expenseRoutes.post("/register", (req, res) => {
+  // Form validation
+
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  User.findOne({ email: req.body.email }).then(user => {
+    if (user) {
+      return res.status(400).json({ email: "Email already exists" });
+    } else {
+      const newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+      });
+
+      // Hash password before saving in database
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash;
+          newUser
+            .save()
+            .then(user => res.json(user))
+            .catch(err => console.log(err));
+        });
+      });
+    }
+  });
+});
+
+// @route POST expenses/login
+// @desc Login user and return JWT token
+// @access Public
+expenseRoutes.post("/login", (req, res) => {
+  // Form validation
+
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Find user by email
+  User.findOne({ email }).then(user => {
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ emailnotfound: "Email not found" });
+    }
+
+    // Check password
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        // User matched
+        // Create JWT Payload
+        const payload = {
+          id: user.id,
+          name: user.name
+        };
+
+        // Sign token
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          {
+            expiresIn: 31556926 // 1 year in seconds
+          },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token
+            });
+          }
+        );
+      } else {
+        return res
+          .status(400)
+          .json({ passwordincorrect: "Password incorrect" });
+      }
+    });
+  });
+});
+
 app.use('/expenses', expenseRoutes);
+
+// -----END ROUTES----- 
+
+const PORT = process.env.PORT || 4000; // "process.env.PORT" is Heroku's port if we're deploying there, then 4000 is a custom chosen port for dev testing
+
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });

@@ -142,14 +142,14 @@ export default class EditExpense extends Component {
         axios.post('/expenses/update/'+this.props.match.params.id, obj)
             .then(res => console.log(res.data));
         
-        this.props.history.push('/');
+        this.props.history.push('/dashboard');
     }
 	
 	deleteExpense() {	
         axios.delete('/expenses/delete/'+this.props.match.params.id)
             .then(res => console.log(res.data));
         
-        this.props.history.push('/');
+        this.props.history.push('/dashboard');
     }
 
     render() {

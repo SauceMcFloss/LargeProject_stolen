@@ -5,6 +5,12 @@ import sortBy from 'lodash/sortBy';
 import sumBy from 'lodash/sumBy';
 import logo from "../krabs.gif";
 
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../actions/authActions";
+
+import jwt_decode from "jwt-decode";
+
 var temp = [];
 var sum = 0;
 
@@ -21,7 +27,7 @@ const Expense = props => (
     </tr>
 )
 
-export default class TodosList extends Component {
+class TodosList extends Component {
 
     constructor(props) {
         super(props);
@@ -35,8 +41,16 @@ export default class TodosList extends Component {
 		};
     }
 	
+	onLogoutClick = e => {
+		e.preventDefault();
+		this.props.logoutUser();
+	};
+	
 	componentDidMount() {		
-        axios.get('/expenses/month/Jan')
+		const idOfUser = jwt_decode(localStorage.getItem("jwtToken")).id;
+        axios.post('/expenses/month/Jan', {
+			id: idOfUser
+		})
             .then(response => {
 				temp = response.data;
 				temp = sortBy(temp, ['description', 'amount']);
@@ -52,8 +66,11 @@ export default class TodosList extends Component {
     }
 	
 	onChangeMonth(month) {
+		const idOfUser = jwt_decode(localStorage.getItem("jwtToken")).id;
 		console.log(month);
-        axios.get('expenses/month/'+month)
+        axios.post('expenses/month/'+month, {
+			id: idOfUser
+		})
             .then(response => {
 				temp = response.data;
 				temp = sortBy(temp, ['description', 'amount']);
@@ -88,6 +105,40 @@ export default class TodosList extends Component {
         return (
             <div>
               <h3><center><img src={logo} width="150" height="75" alt=""/>	Monthly Lists	<img src={logo} width="150" height="75" alt="" /></center></h3>
+			  
+			  <nav className="navbar navbar-expand-sm navbar-light bg-light">
+					<img src={logo} width="100" height="100" alt=""/>
+					<div className="collpase navbar-collapse">
+					  <ul className="navbar-nav mr-auto">
+						<li className="navbar-item">
+						  <Link to="/dashboard" className="nav-link">All Expenses</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/create" className="nav-link">Create Expense</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/monthly" className="nav-link">Monthly</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/group" className="nav-link">Group</Link>
+						</li>
+					  </ul>
+					</div>
+					<img src={logo} width="100" height="100" alt=""/>
+				</nav>
+				<button
+					style={{
+					width: "150px",
+					borderRadius: "3px",
+					letterSpacing: "1.5px",
+					marginTop: "1rem"
+					}}
+					onClick={this.onLogoutClick}
+					className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+					>
+					Logout
+				</button>
+				
 			  <h5>Total: ${this.state.total} </h5>
 				<div className="container">
 				  <nav className="navbar navbar-expand-sm navbar-light bg-light">
@@ -140,3 +191,17 @@ export default class TodosList extends Component {
         )
     }
 }
+
+TodosList.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(TodosList);

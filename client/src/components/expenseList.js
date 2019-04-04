@@ -4,6 +4,14 @@ import axios from 'axios';
 import sortBy from 'lodash/sortBy';
 import sumBy from 'lodash/sumBy';
 
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../actions/authActions";
+
+import jwt_decode from "jwt-decode";
+
+import logo from "../giphy.gif";
+
 var temp = [];
 var sum = 0;
 
@@ -20,7 +28,7 @@ const Expense = props => (
     </tr>
 )
 
-export default class TodosList extends Component {
+class TodosList extends Component {
 
     constructor(props) {
         super(props);
@@ -32,9 +40,20 @@ export default class TodosList extends Component {
 			total: 0
 		};
     }
+	
+	onLogoutClick = e => {
+		e.preventDefault();
+		this.props.logoutUser();
+	};
 
     componentDidMount() {
-        axios.get('/expenses/getAllExpenses')
+		console.log("Attempting getAllExpenses POST");
+		const idOfUser = jwt_decode(localStorage.getItem("jwtToken")).id;
+		console.log("idOfUser: " + idOfUser);
+		
+        axios.post('/expenses/getAllExpenses', {
+			id: idOfUser
+		})
             .then(response => {
 				temp = response.data;
 				temp = sortBy(temp, ['description', 'amount']);
@@ -69,6 +88,40 @@ export default class TodosList extends Component {
         return (
             <div>
                 <h3><center>All Expenses</center></h3>
+				
+				<nav className="navbar navbar-expand-sm navbar-light bg-light">
+					<img src={logo} width="100" height="100" alt=""/>
+					<div className="collpase navbar-collapse">
+					  <ul className="navbar-nav mr-auto">
+						<li className="navbar-item">
+						  <Link to="/dashboard" className="nav-link">All Expenses</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/create" className="nav-link">Create Expense</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/monthly" className="nav-link">Monthly</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/group" className="nav-link">Group</Link>
+						</li>
+					  </ul>
+					</div>
+					<img src={logo} width="100" height="100" alt=""/>
+				</nav>
+				<button
+					style={{
+					width: "150px",
+					borderRadius: "3px",
+					letterSpacing: "1.5px",
+					marginTop: "1rem"
+					}}
+					onClick={this.onLogoutClick}
+					className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+					>
+					Logout
+				</button>
+				
                 <h5>Total: ${this.state.total} </h5>
                 <table className="table table-striped table-bordered" 
 				  style={{ marginTop: 30 }} >
@@ -101,3 +154,17 @@ export default class TodosList extends Component {
         )
     }
 }
+
+TodosList.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(TodosList);
