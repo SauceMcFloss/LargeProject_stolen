@@ -182,7 +182,7 @@ expenseRoutes.post("/createUser", (req, res, next) => {
 expenseRoutes.post("/getAllExpenses", (req, res, next) => {
 	const usersId = req.body.toString();
   Expense.find({userId: "5c9945edf5c8de55c0564c63"}, function(err, expenses) {
-	
+	 
 	if (err) {
 		console.log(err);
 	} else {
