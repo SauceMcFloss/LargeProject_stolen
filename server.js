@@ -191,11 +191,11 @@ expenseRoutes.route("/getAllExpenses").post(function(req, res) {
 });
 
 // Route to return all expenses for a specific month
-expenseRoutes.get("/month/:newMonth", (req, res, next) => {
-  const userId = "5c78ce86a484a23550339d6a";
+expenseRoutes.route("/month/:newMonth").post(function(req, res) {
+  const usersId = req.body.id.toString();
   const month = req.params.newMonth;
   console.log(month);
-  Expense.find({userId: userId, month: month}, function(err, expenses) {
+  Expense.find({userId: usersId, month: month}, function(err, expenses) {
 	console.log(expenses);
 	if (err) {
 		console.log(err);
