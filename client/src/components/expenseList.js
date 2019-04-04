@@ -50,9 +50,7 @@ class TodosList extends Component {
 		console.log("idOfUser: " + idOfUser);
 		
 		const User = {
-			userId: "5c9945edf5c8de55c0564c63",
-			email: '',
-			password: ''
+			userId: "5c9945edf5c8de55c0564c63"
         };
 		
         axios.post('/expenses/getAllExpenses', User)
