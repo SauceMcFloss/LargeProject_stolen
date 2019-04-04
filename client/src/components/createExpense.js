@@ -144,7 +144,7 @@ export default class CreateExpense extends Component {
             groupCode: ''
         }
 		
-		this.props.history.push('/');
+		this.props.history.push('/dashboard');
     }
 
     render() {
