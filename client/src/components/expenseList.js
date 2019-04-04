@@ -55,7 +55,9 @@ class TodosList extends Component {
 			password: ''
         }; */
 		
-        axios.post('/expenses/getAllExpenses')
+        axios.post('/expenses/getAllExpenses', {
+			id: idOfUser
+		})
             .then(response => {
 				temp = response.data;
 				temp = sortBy(temp, ['description', 'amount']);
