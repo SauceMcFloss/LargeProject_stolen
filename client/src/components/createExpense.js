@@ -12,6 +12,8 @@ import { logoutUser } from "../actions/authActions";
 
 import jwt_decode from "jwt-decode";
 
+import logo from "../giphy.gif";
+
 const optionsMonth = [
   { value: 'Jan', label: 'Jan' },
   { value: 'Feb', label: 'Feb' },
@@ -166,6 +168,28 @@ export default class CreateExpense extends Component {
         return (
             <div style={{marginTop: 10}}>
                 <h3>Create New Expense</h3>
+				
+				<nav className="navbar navbar-expand-sm navbar-light bg-light">
+					<img src={logo} width="100" height="100" alt=""/>
+					<div className="collpase navbar-collapse">
+					  <ul className="navbar-nav mr-auto">
+						<li className="navbar-item">
+						  <Link to="/dashboard" className="nav-link">All Expenses</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/create" className="nav-link">Create Expense</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/monthly" className="nav-link">Monthly</Link>
+						</li>
+						<li className="navbar-item">
+						  <Link to="/group" className="nav-link">Group</Link>
+						</li>
+					  </ul>
+					</div>
+					<img src={logo} width="100" height="100" alt=""/>
+				</nav>
+				
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
                         <label>Description: </label>
