@@ -35,8 +35,9 @@ export const loginUser = userData => dispatch => {
       const decoded = jwt_decode(token);
       // Set current user
       dispatch(setCurrentUser(decoded));
-	  const userid = jwt_decode(localStorage.getItem("jwtToken")).id;
-	  console.log(userid);
+	  
+	  //const userid = jwt_decode(localStorage.getItem("jwtToken")).id;
+	  //console.log(userid);
     })
     .catch(err =>
       dispatch({
